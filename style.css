@@ -1,0 +1,145 @@
+/* =========================================================================
+   1. المتغيرات والسمات الأساسية (CSS Variables & Themes)
+   ========================================================================= */
+:root {
+    --bg-primary: #f8f9fa;
+    --bg-surface: #ffffff;
+    --text-primary: #2d3748;
+    --text-muted: #718096;
+    --color-primary: #10b981; /* الأخضر المميز لـ Viridia */
+    --color-primary-hover: #059669;
+    --color-danger: #ef4444;
+    --color-warning: #f59e0b;
+    --color-info: #3b82f6;
+    --border-color: #e2e8f0;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    --transition: all 0.3s ease;
+}
+
+[data-theme="dark"] {
+    --bg-primary: #1a202c;
+    --bg-surface: #2d3748;
+    --text-primary: #f7fafc;
+    --text-muted: #a0aec0;
+    --border-color: #4a5568;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+}
+
+/* =========================================================================
+   2. التنسيقات العامة وعناصر الإدخال (Global CSS & Reset)
+   ========================================================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: var(--transition);
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* الأزرار الاحترافية */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* حقول الإدخال */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    outline: none;
+    transition: var(--transition);
+}
+
+.form-group input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+/* التنبيهات */
+.alert {
+    padding: 12px;
+    border-radius: var(--radius-md);
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.alert-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger);
+}
+
+/* =========================================================================
+   3. تنسيق صفحات الـ Welcome والـ Auth
+   ========================================================================= */
+.welcome-body, .auth-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.welcome-container, .login-card {
+    background-color: var(--bg-surface);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}

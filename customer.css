@@ -1,0 +1,292 @@
+/* =========================================================================
+   1. تنسيقات هيدر الزبون وشريط الأقسام الأفقي (Mobile Optimization)
+   ========================================================================= */
+.customer-header {
+    background-color: var(--bg-surface);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+.brand-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.brand-info img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.brand-info h1 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.table-number-badge {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* شريط التحكم المثبت علوياً للبحث والتمرير الأفقي للأقسام */
+.sticky-controls {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background-color: var(--bg-primary);
+    padding: 10px 0 0 0;
+}
+
+.search-box-container {
+    padding: 0 15px 10px 15px;
+}
+
+.categories-scroll-bar {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 5px 15px 12px 15px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* تمرير سلس مخصص لـ iOS */
+}
+
+.categories-scroll-bar::-webkit-scrollbar {
+    display: none; /* إخفاء شريط التمرير الافتراضي لشكل جمالي رائع */
+}
+
+.cat-scroll-item {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 8px 18px;
+    border-radius: 25px;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+    color: var(--text-primary);
+}
+
+.cat-scroll-item.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    box-shadow: 0 3px 6px rgba(16, 185, 129, 0.2);
+}
+
+/* =========================================================================
+   2. شبكة عرض وجبات الزبون وقرص البطاقة (Customer Menu Grid)
+   ========================================================================= */
+.customer-main {
+    padding: 15px;
+    padding-bottom: 90px; /* لضمان عدم حجب المحتوى بالشريط السفلي للسلة */
+}
+
+.customer-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+}
+
+@media (min-width: 768px) {
+    .customer-menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 25px;
+    }
+}
+
+.cust-item-card {
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--border-color);
+}
+
+.cust-item-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    .cust-item-card img { height: 160px; }
+}
+
+.cust-card-details {
+    padding: 12px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cust-card-details h4 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.cust-item-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cust-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.cust-item-price {
+    font-weight: bold;
+    color: var(--color-primary);
+    font-size: 0.95rem;
+}
+
+.btn-add-to-cart {
+    background-color: var(--bg-primary);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-add-to-cart:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* =========================================================================
+   3. شريط السلة العائم المنزلق من الأسفل (Floating Cart & Drawer)
+   ========================================================================= */
+.cart-floating-bar {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    z-index: 100;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.cart-bar-info {
+    display: flex;
+    flex-direction: column;
+}
+
+#cart-count-badge { font-size: 0.85rem; color: var(--text-muted); }
+#cart-total-badge { font-weight: bold; font-size: 1.05rem; color: var(--text-primary); }
+
+/* الـ Drawer الخاص بالسلة الممتد */
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 200;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.drawer-content {
+    background-color: var(--bg-surface);
+    width: 100%;
+    max-width: 420px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -5px 0 25px rgba(0,0,0,0.2);
+    animation: slideInLeft 0.3s ease;
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.drawer-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-drawer { font-size: 1.8rem; cursor: pointer; }
+.drawer-body { flex: 1; padding: 20px; overflow-y: auto; }
+
+/* عناصر السلة الداخلية وتعديل الكمية */
+.cart-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.cart-item-info h5 { font-size: 0.95rem; font-weight: 600; }
+.cart-item-info span { font-size: 0.85rem; color: var(--color-primary); font-weight: bold; }
+
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-qty {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.drawer-footer { padding: 20px; border-top: 1px solid var(--border-color); }
+.total-summary { display: flex; justify-content: space-between; font-weight: bold; font-size: 1.15rem; margin: 15px 0; }
+.final-price { color: var(--color-primary); }
+
+/* أيقونة النجاح */
+.success-icon { font-size: 4rem; margin-bottom: 15px; }

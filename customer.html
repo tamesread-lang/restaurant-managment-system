@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة الطعام الرقمية</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="customer.css">
+</head>
+<body>
+
+    <!-- الهيدر الخاص بالزبون (Customer Header) -->
+    <header class="customer-header">
+        <div class="brand-info">
+            <img id="cust-logo" src="https://placehold.co/60x60?text=Logo" alt="شعار المطعم">
+            <div>
+                <h1 id="cust-restaurant-name">جاري تحميل القائمة...</h1>
+                <span id="table-badge" class="table-number-badge">طاولة: --</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- شريط البحث السريع والفلترة بالأقسام -->
+    <div class="sticky-controls">
+        <div class="search-box-container">
+            <input type="text" id="cust-search" placeholder="ابحث عن وجبتك المفضلة هنا...">
+        </div>
+        <!-- شريط الأقسام الأفقي القابل للتمرير السلس باللمس -->
+        <div id="cust-categories-scroll" class="categories-scroll-bar">
+            <button class="cat-scroll-item active" data-id="all">كل المأكولات</button>
+        </div>
+    </div>
+
+    <!-- حاوية عرض الوجبات وقائمة الطعام للزبون -->
+    <main class="customer-main">
+        <div id="cust-menu-grid" class="customer-menu-grid">
+            <p class="loading-text">جاري جلب قائمة الطعام الطازجة...</p>
+        </div>
+    </main>
+
+    <!-- الشريط السفلي الثابت لعرض السلة (Floating Cart Bar) -->
+    <footer id="cart-floating-bar" class="cart-floating-bar hidden">
+        <div class="cart-bar-info">
+            <span id="cart-count-badge">0 أصناف</span>
+            <span id="cart-total-badge">إجمالي: 0.00 د.ج</span>
+        </div>
+        <button id="btn-open-cart" class="btn btn-primary">عرض السلة والتأكيد 🛒</button>
+    </footer>
+
+    <!-- نافذة السلة والطلب المنبثقة (Cart Drawer Modal) -->
+    <div id="modal-cart-drawer" class="cart-drawer hidden">
+        <div class="drawer-content">
+            <div class="drawer-header">
+                <h3>سلة المشتريات الخاصة بك</h3>
+                <span id="close-cart-drawer" class="close-drawer">&times;</span>
+            </div>
+            
+            <!-- قائمة عناصر السلة -->
+            <div id="cart-items-list" class="drawer-body">
+                <p class="empty-cart-text">سلتك فارغة حالياً، أضف بعض الوجبات اللذيذة!</p>
+            </div>
+
+            <!-- ملاحظات الطلب وحساب السعر المجموعي -->
+            <div class="drawer-footer">
+                <div class="form-group" style="margin-top: 10px;">
+                    <label for="order-notes">أي ملاحظات خاصة؟ (بدون بصل، حار...)</label>
+                    <textarea id="order-notes" rows="2" placeholder="اكتب ملاحظاتك للطاهي هنا..."></textarea>
+                </div>
+                <div class="total-summary">
+                    <span>المجموع الإجمالي:</span>
+                    <span id="drawer-total-price" class="final-price">0.00 د.ج</span>
+                </div>
+                <div id="cart-alert-msg" class="alert alert-danger hidden"></div>
+                <button id="btn-submit-order" class="btn btn-primary btn-block btn-lg">إرسال الطلب للمطبخ مباشرة 🚀</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة نجاح العملية وبث إشارة الطلب للمدير -->
+    <div id="modal-success" class="modal hidden">
+        <div class="modal-content text-center">
+            <div class="success-icon">🎉</div>
+            <h3>تم إرسال طلبك بنجاح!</h3>
+            <p>طلبك الآن قيد المراجعة في المطبخ، وسيتم تحضيره وتقديمه لطاولتك فوراً.</p>
+            <button id="btn-close-success" class="btn btn-primary btn-block" style="margin-top: 20px;">حسناً، استمر بالتصفح</button>
+        </div>
+    </div>
+
+    <!-- جلب قاعدة البيانات ونظام الزبون التفاعلي -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="customer.js"></script>
+</body>
+</html>

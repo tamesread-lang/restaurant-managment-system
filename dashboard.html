@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المطعم - Viridia</title>
+    <!-- الملفات الأسلوبية المشتركة والخاصة باللوحة -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+    <!-- شريط التنقل العلوي (Navbar) -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <img id="nav-logo" src="assets/images/logo.png" alt="الشعار" onerror="this.src='https://placehold.co/50x50?text=V'">
+            <span id="nav-restaurant-name">جاري التحميل...</span>
+        </div>
+        <div class="nav-actions">
+            <button id="btn-theme-toggle" class="btn-icon" title="تبديل الوضع الليلي/النهاري">🌓</button>
+            <button id="btn-logout" class="btn btn-danger">تسجيل الخروج</button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- القائمة الجانبية (Sidebar) -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-tab="tab-overview">📊 نظرة عامة</li>
+                <li class="menu-item" data-tab="tab-orders">🛍️ إدارة الطلبات <span id="badge-new-orders" class="badge badge-danger hidden">0</span></li>
+                <li class="menu-item" data-tab="tab-menu">🍔 قائمة الطعام</li>
+                <li class="menu-item" data-tab="tab-tables">🪑 إدارة الطاولات</li>
+                <li class="menu-item" data-tab="tab-settings">⚙️ الإعدادات</li>
+            </ul>
+        </aside>
+
+        <!-- المحتوى الرئيسي للوحة التحكم (Main Content) -->
+        <main class="main-content">
+            
+            <!-- 1. تبويب نظرة عامة والإحصائيات -->
+            <section id="tab-overview" class="tab-content active">
+                <div class="section-header">
+                    <h2>الإحصائيات العامة (اليوم)</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>الطلبات الحالية</h3>
+                        <p id="stat-current-orders" class="stat-value">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>الطلبات المنجزة</h3>
+                        <p id="stat-completed-orders" class="stat-value text-success">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>الطلبات الملغاة</h3>
+                        <p id="stat-cancelled-orders" class="stat-value text-danger">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>الأرباح اليومية</h3>
+                        <p id="stat-daily-earnings" class="stat-value">0 د.ج</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>الأرباح الشهرية</h3>
+                        <p id="stat-monthly-earnings" class="stat-value">0 د.ج</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. تبويب إدارة الطلبات -->
+            <section id="tab-orders" class="tab-content">
+                <div class="section-header">
+                    <h2>الطلبات المباشرة</h2>
+                    <div class="filters-bar">
+                        <input type="text" id="order-search" placeholder="ابحث عن طلب (رقم الطلب أو الطاولة)...">
+                        <select id="order-sort">
+                            <option value="time-desc">الوقت (الأحدث أولاً)</option>
+                            <option value="time-asc">الوقت (الأقدم أولاً)</option>
+                            <option value="table-asc">رقم الطاولة</option>
+                        </select>
+                        <select id="order-filter-status">
+                            <option value="all">كل الحالات</option>
+                            <option value="new">جديد</option>
+                            <option value="preparing">قيد التحضير</option>
+                            <option value="ready">جاهز</option>
+                            <option value="delivered">تم التسليم</option>
+                            <option value="cancelled">ملغي</option>
+                        </select>
+                        <button id="btn-clear-day" class="btn btn-danger">🗑️ أرشفة وحذف طلبات اليوم</button>
+                    </div>
+                </div>
+                <!-- حاوية الطلبات الحية -->
+                <div id="orders-live-container" class="orders-grid">
+                    <p class="empty-msg">جاري تحميل الطلبات أو لا توجد طلبات حالياً...</p>
+                </div>
+            </section>
+
+            <!-- 3. تبويب إدارة قائمة الطعام -->
+            <section id="tab-menu" class="tab-content">
+                <div class="section-header flex-between">
+                    <h2>إدارة الأقسام والوجبات</h2>
+                    <div class="action-buttons">
+                        <button id="btn-add-category" class="btn btn-primary">+ إضافة قسم جديد</button>
+                        <button id="btn-add-item" class="btn btn-primary">+ إضافة وجبة جديدة</button>
+                    </div>
+                </div>
+
+                <!-- عرض الأقسام الحالية -->
+                <div class="categories-management">
+                    <h3>الأقسام الحالية</h3>
+                    <div id="categories-list" class="tags-container"></div>
+                </div>
+
+                <!-- عرض قائمة الوجبات مصنفة -->
+                <div class="menu-items-management">
+                    <h3>قائمة الوجبات</h3>
+                    <div id="menu-items-grid" class="menu-admin-grid"></div>
+                </div>
+            </section>
+
+            <!-- 4. تبويب إدارة الطاولات -->
+            <section id="tab-tables" class="tab-content">
+                <div class="section-header flex-between">
+                    <h2>إدارة طاولات المطعم</h2>
+                    <button id="btn-add-table" class="btn btn-primary">+ إضافة طاولة جديدة</button>
+                </div>
+                <div id="tables-grid" class="tables-grid"></div>
+            </section>
+
+            <!-- 5. تبويب الإعدادات -->
+            <section id="tab-settings" class="tab-content">
+                <div class="section-header">
+                    <h2>إعدادات المطعم العامة</h2>
+                </div>
+                <form id="restaurant-settings-form" class="settings-form">
+                    <div class="form-group">
+                        <label for="settings-name">اسم المطعم</label>
+                        <input type="text" id="settings-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="settings-logo">رابط شعار المطعم (URL)</label>
+                        <input type="url" id="settings-logo" placeholder="https://example.com/logo.png">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="settings-opening">وقت فتح المطعم</label>
+                            <input type="time" id="settings-opening" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="settings-closing">وقت إغلاق المطعم</label>
+                            <input type="time" id="settings-closing" required>
+                        </div>
+                    </div>
+                    <div class="form-group toggle-group">
+                        <label for="settings-accept-orders">حالة استقبال الطلبات الفورية</label>
+                        <input type="checkbox" id="settings-accept-orders" class="toggle-checkbox">
+                    </div>
+                    <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
+                </form>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- =========================================================================
+       النوافذ المنبثقة (Modals) لإدخال وتعديل البيانات
+       ========================================================================= -->
+
+    <!-- Modal القسم -->
+    <div id="modal-category" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" id="close-category-modal">&times;</span>
+            <h3 id="category-modal-title">إضافة قسم جديد</h3>
+            <form id="form-category">
+                <input type="hidden" id="category-id">
+                <div class="form-group">
+                    <label for="category-name">اسم القسم</label>
+                    <input type="text" id="category-name" required placeholder="مثال: مشويات، مشروبات...">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">حفظ القسم</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal الوجبة -->
+    <div id="modal-item" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" id="close-item-modal">&times;</span>
+            <h3 id="item-modal-title">إضافة وجبة جديدة</h3>
+            <form id="form-item">
+                <input type="hidden" id="item-id">
+                <div class="form-group">
+                    <label for="item-category">القسم</label>
+                    <select id="item-category" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="item-title">اسم الوجبة</label>
+                    <input type="text" id="item-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-price">السعر (د.ج)</label>
+                    <input type="number" id="item-price" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-description">وصف الوجبة</label>
+                    <textarea id="item-description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="item-image">رابط صورة الوجبة (URL)</label>
+                    <input type="url" id="item-image" placeholder="https://example.com/burger.jpg">
+                </div>
+                <div class="form-group toggle-group">
+                    <label for="item-available">توفر الوجبة في القائمة</label>
+                    <input type="checkbox" id="item-available" checked>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">حفظ الوجبة</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- عنصر الصوت المخفي للتنبيهات الفورية عند وصول طلب جديد -->
+    <audio id="notification-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav" preload="auto"></audio>
+
+    <!-- تضمين مكتبات التخديم والتشغيل الخارجية للـ QR وقاعدة البيانات -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- مكتبة كيو آر كود لإنشاء الباركود للطاولات ديناميكياً -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <!-- تشغيل الملف البرمجي الرئيسي المتحكم باللوحة كموديول مستقل -->
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>

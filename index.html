@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة المطعم الذكي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="welcome-body">
+    <div class="welcome-container">
+        <div class="logo-box">
+            <h1 id="welcome-title">جاري تحميل الإعدادات...</h1>
+        </div>
+        <p class="welcome-text">مرحباً بك في نظامنا الذكي. يرجى استخدام الـ QR Code الموجود على طاولتك لاستعراض قائمة الطعام وطلب الوجبات مباشرة.</p>
+        <div class="control-links">
+            <a href="login.html" class="btn btn-primary">لوحة تحكم الإدارة</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabase } from '.config.js';
+        async function loadBrand() {
+            const { data, error } = await supabase.from('restaurant_settings').select('restaurant_name').single();
+            if (data) {
+                document.getElementById('welcome-title').textContent = data.restaurant_name;
+                document.title = data.restaurant_name;
+            }
+        }
+        loadBrand();
+    </script>
+</body>
+</html>
