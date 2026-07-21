@@ -1,5 +1,5 @@
 import { supabase } from './config.js';
-import { sanitizeHTML, formatCurrency, isValidPrice } from './utils.js';
+import { sanitizeHTML, formatCurrency, isValidPrice, haversineDistance } from './utils.js';
 
 // متغيرات حالة الزبون والسلة في ذاكرة الصفحة الحالية (Runtime Global State)
 let currentTable = null;
@@ -274,7 +274,62 @@ async function submitFinalOrderToServer() {
     btnSubmit.disabled = true;
     btnSubmit.textContent = "جاري إرسال طلبك الآمن للمطبخ...";
 
-    // 1. تدوين وإدخال رأس الطلب في جدول (orders) لاستخراج الـ Order ID
+    // 1. التحقق من إعدادات الأمان والموقع
+    const { data: secSettings, error: secErr } = await supabase
+        .from('security_settings')
+        .select('*')
+        .eq('id', 1)
+        .single();
+
+    if (!secErr && secSettings) {
+        // 1a. التحقق من فترة التهدئة (Rate Limiting) عبر localStorage
+        if (secSettings.cooldown_minutes > 0) {
+            const lastSubmit = localStorage.getItem('last_order_submit');
+            if (lastSubmit) {
+                const elapsed = (Date.now() - parseInt(lastSubmit)) / 60000;
+                if (elapsed < secSettings.cooldown_minutes) {
+                    const remaining = Math.ceil(secSettings.cooldown_minutes - elapsed);
+                    showCartAlert(`يجب الانتظار ${remaining} دقيقة قبل تقديم طلب جديد.`);
+                    resetSubmitButton();
+                    return;
+                }
+            }
+        }
+
+        // 1b. التحقق من الموقع الجغرافي (GPS) إذا كان مفعلاً
+        if (secSettings.is_location_check_enabled && secSettings.latitude && secSettings.longitude && secSettings.max_distance_meters > 0) {
+            const gps = await new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    resolve(null);
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => resolve(pos.coords),
+                    () => resolve(null),
+                    { enableHighAccuracy: true, timeout: 10000 }
+                );
+            });
+
+            if (!gps) {
+                showCartAlert("تعذر التحقق من موقعك الجغرافي. يرجى تفعيل GPS والمحاولة مرة أخرى.");
+                resetSubmitButton();
+                return;
+            }
+
+            const distance = haversineDistance(
+                gps.latitude, gps.longitude,
+                secSettings.latitude, secSettings.longitude
+            );
+
+            if (distance > secSettings.max_distance_meters) {
+                showCartAlert(`أنت على بعد ${Math.round(distance)} متر من المطعم. يجب أن تكون ضمن ${secSettings.max_distance_meters} متر لتقديم طلب.`);
+                resetSubmitButton();
+                return;
+            }
+        }
+    }
+
+    // 2. تدوين وإدخال رأس الطلب في جدول (orders) لاستخراج الـ Order ID
     const { data: orderData, error: orderErr } = await supabase
         .from('orders')
         .insert([{
@@ -317,6 +372,9 @@ async function submitFinalOrderToServer() {
     document.getElementById('order-notes').value = '';
     document.getElementById('modal-cart-drawer').classList.add('hidden');
     document.getElementById('modal-success').classList.remove('hidden');
+
+    // تسجيل وقت تقديم الطلب لتطبيق فترة التهدئة
+    localStorage.setItem('last_order_submit', Date.now());
 
     resetSubmitButton();
 }

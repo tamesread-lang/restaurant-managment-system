@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // جلب وحقن إعدادات وهوية المطعم الأساسية
     await loadRestaurantSettings();
+    await loadSecuritySettings();
 
     // تشغيل محركات البيانات المباشرة والأنظمة الحية لجدول الطلبات اليومية
     await loadOrdersAndStats();
@@ -40,6 +41,20 @@ async function loadRestaurantSettings() {
             document.getElementById('settings-closing').value = data.closing_time;
             document.getElementById('settings-accept-orders').checked = data.is_accepting_orders;
         }
+    }
+}
+
+/**
+ * جلب إعدادات الأمان والموقع من قاعدة البيانات
+ */
+async function loadSecuritySettings() {
+    const { data, error } = await supabase.from('security_settings').select('*').eq('id', 1).single();
+    if (data) {
+        document.getElementById('security-location-check').checked = data.is_location_check_enabled || false;
+        document.getElementById('security-lat').value = data.latitude || '';
+        document.getElementById('security-lng').value = data.longitude || '';
+        document.getElementById('security-max-distance').value = data.max_distance_meters || '';
+        document.getElementById('security-cooldown').value = data.cooldown_minutes || '';
     }
 }
 
@@ -109,6 +124,40 @@ function setupModalsAndForms() {
             alert("تم تحديث إعدادات المطعم بنجاح الفوري.");
             loadRestaurantSettings();
         }
+    });
+
+    // معالجة فورمة إعدادات الأمان والموقع
+    document.getElementById('security-settings-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = {
+            is_location_check_enabled: document.getElementById('security-location-check').checked,
+            latitude: parseFloat(document.getElementById('security-lat').value) || null,
+            longitude: parseFloat(document.getElementById('security-lng').value) || null,
+            max_distance_meters: parseInt(document.getElementById('security-max-distance').value) || null,
+            cooldown_minutes: parseInt(document.getElementById('security-cooldown').value) || null
+        };
+        const { error } = await supabase.from('security_settings').upsert({ id: 1, ...payload });
+        if (error) alert("فشل حفظ إعدادات الأمان: " + error.message);
+        else {
+            alert("تم حفظ إعدادات الأمان والموقع بنجاح.");
+            loadSecuritySettings();
+        }
+    });
+
+    // زر الحصول على الموقع الحالي للمدير
+    document.getElementById('btn-get-location').addEventListener('click', () => {
+        if (!navigator.geolocation) {
+            alert("المتصفح لا يدعم تحديد الموقع الجغرافي.");
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                document.getElementById('security-lat').value = pos.coords.latitude;
+                document.getElementById('security-lng').value = pos.coords.longitude;
+            },
+            () => alert("تعذر الحصول على موقعك الحالي. تأكد من تفعيل GPS."),
+            { enableHighAccuracy: true, timeout: 10000 }
+        );
     });
 
     // فتح واغلاق نوافذ الإدخال المنبثقة (Modals Controllers)

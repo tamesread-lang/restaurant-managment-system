@@ -306,6 +306,52 @@
                         </button>
                     </form>
                 </div>
+
+                <!-- Security & Location Settings -->
+                <div class="section-header" style="margin-top: 32px;">
+                    <h2>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        إعدادات الأمان والموقع
+                    </h2>
+                </div>
+                <div class="settings-card">
+                    <form id="security-settings-form" class="settings-form">
+                        <div class="form-group toggle-group">
+                            <label for="security-location-check">تفعيل التحقق من الموقع الجغرافي (GPS)</label>
+                            <input type="checkbox" id="security-location-check" class="toggle-checkbox">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex:2;">
+                                <label for="security-lat">خط العرض (Latitude)</label>
+                                <input type="number" id="security-lat" step="any" placeholder="مثال: 36.7538">
+                            </div>
+                            <div class="form-group" style="flex:2;">
+                                <label for="security-lng">خط الطول (Longitude)</label>
+                                <input type="number" id="security-lng" step="any" placeholder="مثال: 3.0589">
+                            </div>
+                            <div class="form-group" style="flex:1; align-self:flex-end;">
+                                <button type="button" id="btn-get-location" class="btn btn-primary btn-block">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                                    موقعي الحالي
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="security-max-distance">أقصى مسافة مسموحة (متر)</label>
+                                <input type="number" id="security-max-distance" min="0" step="1" placeholder="مثال: 100">
+                            </div>
+                            <div class="form-group">
+                                <label for="security-cooldown">فترة التهدئة بين الطلبات (دقائق)</label>
+                                <input type="number" id="security-cooldown" min="0" step="1" placeholder="مثال: 2">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            حفظ إعدادات الأمان
+                        </button>
+                    </form>
+                </div>
             </section>
 
         </main>
