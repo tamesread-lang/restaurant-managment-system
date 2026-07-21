@@ -1048,15 +1048,21 @@ body {
 }
 
 .qr-container {
-  margin: 12px auto;
+  margin: 16px auto;
   display: flex;
   justify-content: center;
-  padding: 8px;
-  background: #fff;
-  border-radius: 12px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 16px;
   width: fit-content;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.qr-container img { display: block; }
+.qr-container canvas,
+.qr-container img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 
 .table-card .btn {
   padding: 7px 14px;
