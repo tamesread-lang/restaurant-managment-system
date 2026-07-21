@@ -9,13 +9,27 @@
 </head>
 <body>
 
+    <!-- Ambient background glow orbs -->
+    <div class="ambient-glow ambient-glow--1" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow--2" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow--3" aria-hidden="true"></div>
+
+    <!-- Decorative top accent bar -->
+    <div class="top-accent" aria-hidden="true"></div>
+
     <!-- الهيدر الخاص بالزبون (Customer Header) -->
     <header class="customer-header">
         <div class="brand-info">
-            <img id="cust-logo" src="https://placehold.co/60x60?text=Logo" alt="شعار المطعم">
+            <div class="brand-logo-wrapper">
+                <img id="cust-logo" src="https://placehold.co/60x60?text=Logo" alt="شعار المطعم">
+                <div class="brand-logo-glow" aria-hidden="true"></div>
+            </div>
             <div>
                 <h1 id="cust-restaurant-name">جاري تحميل القائمة...</h1>
-                <span id="table-badge" class="table-number-badge">طاولة: --</span>
+                <span id="table-badge" class="table-number-badge">
+                    <svg class="badge-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    طاولة: --
+                </span>
             </div>
         </div>
     </header>
@@ -23,6 +37,7 @@
     <!-- شريط البحث السريع والفلترة بالأقسام -->
     <div class="sticky-controls">
         <div class="search-box-container">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <input type="text" id="cust-search" placeholder="ابحث عن وجبتك المفضلة هنا...">
         </div>
         <!-- شريط الأقسام الأفقي القابل للتمرير السلس باللمس -->
@@ -34,7 +49,39 @@
     <!-- حاوية عرض الوجبات وقائمة الطعام للزبون -->
     <main class="customer-main">
         <div id="cust-menu-grid" class="customer-menu-grid">
-            <p class="loading-text">جاري جلب قائمة الطعام الطازجة...</p>
+            <!-- Skeleton loading placeholders -->
+            <div class="cust-item-card skeleton-card" aria-hidden="true">
+                <div class="skeleton-img"></div>
+                <div class="cust-card-details">
+                    <div class="skeleton-line skeleton-line--title"></div>
+                    <div class="skeleton-line skeleton-line--desc"></div>
+                    <div class="skeleton-line skeleton-line--price"></div>
+                </div>
+            </div>
+            <div class="cust-item-card skeleton-card" aria-hidden="true">
+                <div class="skeleton-img"></div>
+                <div class="cust-card-details">
+                    <div class="skeleton-line skeleton-line--title"></div>
+                    <div class="skeleton-line skeleton-line--desc"></div>
+                    <div class="skeleton-line skeleton-line--price"></div>
+                </div>
+            </div>
+            <div class="cust-item-card skeleton-card" aria-hidden="true">
+                <div class="skeleton-img"></div>
+                <div class="cust-card-details">
+                    <div class="skeleton-line skeleton-line--title"></div>
+                    <div class="skeleton-line skeleton-line--desc"></div>
+                    <div class="skeleton-line skeleton-line--price"></div>
+                </div>
+            </div>
+            <div class="cust-item-card skeleton-card" aria-hidden="true">
+                <div class="skeleton-img"></div>
+                <div class="cust-card-details">
+                    <div class="skeleton-line skeleton-line--title"></div>
+                    <div class="skeleton-line skeleton-line--desc"></div>
+                    <div class="skeleton-line skeleton-line--price"></div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -44,30 +91,45 @@
             <span id="cart-count-badge">0 أصناف</span>
             <span id="cart-total-badge">إجمالي: 0.00 د.ج</span>
         </div>
-        <button id="btn-open-cart" class="btn btn-primary">عرض السلة والتأكيد 🛒</button>
+        <button id="btn-open-cart" class="btn btn-primary">
+            <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            عرض السلة والتأكيد
+        </button>
     </footer>
 
     <!-- نافذة السلة والطلب المنبثقة (Cart Drawer Modal) -->
     <div id="modal-cart-drawer" class="cart-drawer hidden">
+        <div class="drawer-overlay" aria-hidden="true"></div>
         <div class="drawer-content">
             <div class="drawer-header">
-                <h3>سلة المشتريات الخاصة بك</h3>
-                <span id="close-cart-drawer" class="close-drawer">&times;</span>
+                <h3>
+                    <svg class="drawer-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    سلة المشتريات الخاصة بك
+                </h3>
+                <span id="close-cart-drawer" class="close-drawer">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </span>
             </div>
             
             <!-- قائمة عناصر السلة -->
             <div id="cart-items-list" class="drawer-body">
-                <p class="empty-cart-text">سلتك فارغة حالياً، أضف بعض الوجبات اللذيذة!</p>
+                <div class="empty-cart-state">
+                    <svg class="empty-cart-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    <p class="empty-cart-text">سلتك فارغة حالياً، أضف بعض الوجبات اللذيذة!</p>
+                </div>
             </div>
 
             <!-- ملاحظات الطلب وحساب السعر المجموعي -->
             <div class="drawer-footer">
-                <div class="form-group" style="margin-top: 10px;">
-                    <label for="order-notes">أي ملاحظات خاصة؟ (بدون بصل، حار...)</label>
-                    <textarea id="order-notes" rows="2" placeholder="اكتب ملاحظاتك للطاهي هنا..."></textarea>
+                <div class="form-group">
+                    <label for="order-notes">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        ملاحظات خاصة
+                    </label>
+                    <textarea id="order-notes" rows="2" placeholder="بدون بصل، حار، إضافات..."></textarea>
                 </div>
                 <div class="total-summary">
-                    <span>المجموع الإجمالي:</span>
+                    <span>المجموع الإجمالي</span>
                     <span id="drawer-total-price" class="final-price">0.00 د.ج</span>
                 </div>
                 <div id="cart-alert-msg" class="alert alert-danger hidden"></div>
@@ -78,11 +140,20 @@
 
     <!-- نافذة نجاح العملية وبث إشارة الطلب للمدير -->
     <div id="modal-success" class="modal hidden">
+        <div class="modal-backdrop" aria-hidden="true"></div>
         <div class="modal-content text-center">
-            <div class="success-icon">🎉</div>
+            <div class="success-icon">
+                <svg class="checkmark-circle" width="72" height="72" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle-bg" cx="26" cy="26" r="24" fill="none" stroke="#10b981" stroke-width="2"/>
+                    <path class="checkmark-check" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" d="M14 27l7 7 16-16"/>
+                </svg>
+            </div>
             <h3>تم إرسال طلبك بنجاح!</h3>
             <p>طلبك الآن قيد المراجعة في المطبخ، وسيتم تحضيره وتقديمه لطاولتك فوراً.</p>
-            <button id="btn-close-success" class="btn btn-primary btn-block" style="margin-top: 20px;">حسناً، استمر بالتصفح</button>
+            <button id="btn-close-success" class="btn btn-primary btn-block" style="margin-top: 24px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                حسناً، استمر بالتصفح
+            </button>
         </div>
     </div>
 
