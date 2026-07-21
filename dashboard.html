@@ -1,77 +1,255 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="light">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة تحكم المطعم - Al rahma</title>
-    <!-- الملفات الأسلوبية المشتركة والخاصة باللوحة -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
 
-    <!-- شريط التنقل العلوي (Navbar) -->
+    <!-- Ambient background glow orbs -->
+    <div class="ambient-glow ambient-glow--1" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow--2" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow--3" aria-hidden="true"></div>
+
+    <!-- Top accent bar -->
+    <div class="top-accent" aria-hidden="true"></div>
+
+    <!-- ======================== NAVBAR ======================== -->
     <header class="navbar">
         <div class="nav-brand">
-            <img id="nav-logo" src="assets/images/logo.png" alt="الشعار" onerror="this.src='https://placehold.co/50x50?text=V'">
+            <div class="nav-logo-wrapper">
+                <img id="nav-logo" src="assets/images/logo.png" alt="الشعار" onerror="this.src='https://placehold.co/50x50?text=V'">
+                <div class="nav-logo-glow" aria-hidden="true"></div>
+            </div>
             <span id="nav-restaurant-name">جاري التحميل...</span>
         </div>
         <div class="nav-actions">
             <button id="btn-theme-toggle" class="btn-icon" title="تبديل الوضع الليلي/النهاري">🌓</button>
-            <button id="btn-logout" class="btn btn-danger">تسجيل الخروج</button>
+            <button id="btn-logout" class="btn btn-danger">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                تسجيل الخروج
+            </button>
         </div>
     </header>
 
+    <!-- ======================== DASHBOARD LAYOUT ======================== -->
     <div class="dashboard-container">
-        <!-- القائمة الجانبية (Sidebar) -->
+        <!-- Sidebar -->
         <aside class="sidebar">
+            <div class="sidebar-header">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>القائمة الرئيسية</span>
+            </div>
             <ul class="sidebar-menu">
-                <li class="menu-item active" data-tab="tab-overview">📊 نظرة عامة</li>
-                <li class="menu-item" data-tab="tab-orders">🛍️ إدارة الطلبات <span id="badge-new-orders" class="badge badge-danger hidden">0</span></li>
-                <li class="menu-item" data-tab="tab-menu">🍔 قائمة الطعام</li>
-                <li class="menu-item" data-tab="tab-tables">🪑 إدارة الطاولات</li>
-                <li class="menu-item" data-tab="tab-settings">⚙️ الإعدادات</li>
+                <li class="menu-item active" data-tab="tab-overview">
+                    <span class="menu-item-icon">📊</span>
+                    <span>نظرة عامة</span>
+                </li>
+                <li class="menu-item" data-tab="tab-orders">
+                    <span class="menu-item-icon">🛍️</span>
+                    <span>إدارة الطلبات</span>
+                    <span id="badge-new-orders" class="badge badge-danger hidden">0</span>
+                </li>
+                <li class="menu-item" data-tab="tab-menu">
+                    <span class="menu-item-icon">🍔</span>
+                    <span>قائمة الطعام</span>
+                </li>
+                <li class="menu-item" data-tab="tab-tables">
+                    <span class="menu-item-icon">🪑</span>
+                    <span>إدارة الطاولات</span>
+                </li>
+                <li class="menu-item" data-tab="tab-settings">
+                    <span class="menu-item-icon">⚙️</span>
+                    <span>الإعدادات</span>
+                </li>
             </ul>
+            <div class="sidebar-footer">
+                <div class="sidebar-status">
+                    <span class="sidebar-status-dot"></span>
+                    النظام نشط
+                </div>
+            </div>
         </aside>
 
-        <!-- المحتوى الرئيسي للوحة التحكم (Main Content) -->
+        <!-- Main Content -->
         <main class="main-content">
-            
-            <!-- 1. تبويب نظرة عامة والإحصائيات -->
+
+            <!-- ===================== TAB: OVERVIEW ===================== -->
             <section id="tab-overview" class="tab-content active">
+
+                <!-- Welcome Hero Banner -->
+                <div class="welcome-hero">
+                    <div class="welcome-hero-content">
+                        <div class="welcome-hero-text">
+                            <h2 class="welcome-title">مرحباً بك في لوحة التحكم</h2>
+                            <p class="welcome-subtitle">نظرة سريعة على أداء مطعمك اليوم</p>
+                        </div>
+                        <div class="welcome-badges">
+                            <span class="welcome-badge welcome-badge--green">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                نظام التشغيل نشط
+                            </span>
+                            <span class="welcome-badge welcome-badge--amber">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                اليوم
+                            </span>
+                        </div>
+                    </div>
+                    <div class="welcome-hero-glow" aria-hidden="true"></div>
+                </div>
+
+                <!-- Floating Quick-Stat Cards -->
+                <div class="quick-stats-bar">
+                    <div class="quick-stat-card">
+                        <div class="quick-stat-icon quick-stat-icon--green">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </div>
+                        <div class="quick-stat-info">
+                            <span class="quick-stat-label">الطلبات الحالية</span>
+                            <span class="quick-stat-value" data-stat="current">0</span>
+                        </div>
+                    </div>
+                    <div class="quick-stat-card">
+                        <div class="quick-stat-icon quick-stat-icon--amber">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <div class="quick-stat-info">
+                            <span class="quick-stat-label">الطلبات المنجزة</span>
+                            <span class="quick-stat-value" data-stat="completed">0</span>
+                        </div>
+                    </div>
+                    <div class="quick-stat-card">
+                        <div class="quick-stat-icon quick-stat-icon--red">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </div>
+                        <div class="quick-stat-info">
+                            <span class="quick-stat-label">الطلبات الملغاة</span>
+                            <span class="quick-stat-value" data-stat="cancelled">0</span>
+                        </div>
+                    </div>
+                    <div class="quick-stat-card">
+                        <div class="quick-stat-icon quick-stat-icon--green">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <div class="quick-stat-info">
+                            <span class="quick-stat-label">أرباح اليوم</span>
+                            <span class="quick-stat-value" data-stat="daily">0 د.ج</span>
+                        </div>
+                    </div>
+                    <div class="quick-stat-card">
+                        <div class="quick-stat-icon quick-stat-icon--amber">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <div class="quick-stat-info">
+                            <span class="quick-stat-label">أرباح الشهر</span>
+                            <span class="quick-stat-value" data-stat="monthly">0 د.ج</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Stats Section -->
                 <div class="section-header">
                     <h2>الإحصائيات العامة (اليوم)</h2>
                 </div>
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>الطلبات الحالية</h3>
+                    <div class="stat-card stat-card--current">
+                        <div class="stat-card-glow" aria-hidden="true"></div>
+                        <div class="stat-card-header">
+                            <span class="stat-card-label">الطلبات الحالية</span>
+                            <span class="stat-card-badge stat-card-badge--green">نشط</span>
+                        </div>
                         <p id="stat-current-orders" class="stat-value">0</p>
                     </div>
-                    <div class="stat-card">
-                        <h3>الطلبات المنجزة</h3>
+                    <div class="stat-card stat-card--completed">
+                        <div class="stat-card-glow" aria-hidden="true"></div>
+                        <div class="stat-card-header">
+                            <span class="stat-card-label">الطلبات المنجزة</span>
+                            <span class="stat-card-badge stat-card-badge--amber">مكتمل</span>
+                        </div>
                         <p id="stat-completed-orders" class="stat-value text-success">0</p>
                     </div>
-                    <div class="stat-card">
-                        <h3>الطلبات الملغاة</h3>
+                    <div class="stat-card stat-card--cancelled">
+                        <div class="stat-card-glow" aria-hidden="true"></div>
+                        <div class="stat-card-header">
+                            <span class="stat-card-label">الطلبات الملغاة</span>
+                            <span class="stat-card-badge stat-card-badge--red">ملغي</span>
+                        </div>
                         <p id="stat-cancelled-orders" class="stat-value text-danger">0</p>
                     </div>
-                    <div class="stat-card">
-                        <h3>الأرباح اليومية</h3>
+                    <div class="stat-card stat-card--earnings">
+                        <div class="stat-card-glow" aria-hidden="true"></div>
+                        <div class="stat-card-header">
+                            <span class="stat-card-label">الأرباح اليومية</span>
+                            <span class="stat-card-badge stat-card-badge--green">إجمالي</span>
+                        </div>
                         <p id="stat-daily-earnings" class="stat-value">0 د.ج</p>
                     </div>
-                    <div class="stat-card">
-                        <h3>الأرباح الشهرية</h3>
+                    <div class="stat-card stat-card--monthly">
+                        <div class="stat-card-glow" aria-hidden="true"></div>
+                        <div class="stat-card-header">
+                            <span class="stat-card-label">الأرباح الشهرية</span>
+                            <span class="stat-card-badge stat-card-badge--amber">تراكمي</span>
+                        </div>
                         <p id="stat-monthly-earnings" class="stat-value">0 د.ج</p>
+                    </div>
+                </div>
+
+                <!-- Live Status Section -->
+                <div class="live-status-section">
+                    <div class="section-header">
+                        <h2>
+                            <span class="live-dot"></span>
+                            حالة الطلبات المباشرة
+                        </h2>
+                    </div>
+                    <div class="status-cards-row">
+                        <div class="status-glass-card status-glass-card--new">
+                            <div class="status-glass-icon">🆕</div>
+                            <div class="status-glass-info">
+                                <span class="status-glass-label">جديد</span>
+                                <span class="status-glass-count" id="status-count-new">0</span>
+                            </div>
+                        </div>
+                        <div class="status-glass-card status-glass-card--preparing">
+                            <div class="status-glass-icon">👨‍🍳</div>
+                            <div class="status-glass-info">
+                                <span class="status-glass-label">قيد التحضير</span>
+                                <span class="status-glass-count" id="status-count-preparing">0</span>
+                            </div>
+                        </div>
+                        <div class="status-glass-card status-glass-card--ready">
+                            <div class="status-glass-icon">✅</div>
+                            <div class="status-glass-info">
+                                <span class="status-glass-label">جاهز</span>
+                                <span class="status-glass-count" id="status-count-ready">0</span>
+                            </div>
+                        </div>
+                        <div class="status-glass-card status-glass-card--delivered">
+                            <div class="status-glass-icon">📦</div>
+                            <div class="status-glass-info">
+                                <span class="status-glass-label">تم التسليم</span>
+                                <span class="status-glass-count" id="status-count-delivered">0</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 2. تبويب إدارة الطلبات -->
+            <!-- ===================== TAB: ORDERS ===================== -->
             <section id="tab-orders" class="tab-content">
                 <div class="section-header">
-                    <h2>الطلبات المباشرة</h2>
+                    <h2>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        الطلبات المباشرة
+                    </h2>
                     <div class="filters-bar">
-                        <input type="text" id="order-search" placeholder="ابحث عن طلب (رقم الطلب أو الطاولة)...">
+                        <div class="filter-input-group">
+                            <svg class="filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" id="order-search" placeholder="ابحث عن طلب (رقم الطلب أو الطاولة)...">
+                        </div>
                         <select id="order-sort">
                             <option value="time-desc">الوقت (الأحدث أولاً)</option>
                             <option value="time-asc">الوقت (الأقدم أولاً)</option>
@@ -85,90 +263,112 @@
                             <option value="delivered">تم التسليم</option>
                             <option value="cancelled">ملغي</option>
                         </select>
-                        <button id="btn-clear-day" class="btn btn-danger">🗑️ أرشفة وحذف طلبات اليوم</button>
+                        <button id="btn-clear-day" class="btn btn-danger">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            أرشفة وحذف طلبات اليوم
+                        </button>
                     </div>
                 </div>
-                <!-- حاوية الطلبات الحية -->
                 <div id="orders-live-container" class="orders-grid">
                     <p class="empty-msg">جاري تحميل الطلبات أو لا توجد طلبات حالياً...</p>
                 </div>
             </section>
 
-            <!-- 3. تبويب إدارة قائمة الطعام -->
+            <!-- ===================== TAB: MENU ===================== -->
             <section id="tab-menu" class="tab-content">
                 <div class="section-header flex-between">
-                    <h2>إدارة الأقسام والوجبات</h2>
+                    <h2>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                        إدارة الأقسام والوجبات
+                    </h2>
                     <div class="action-buttons">
-                        <button id="btn-add-category" class="btn btn-primary">+ إضافة قسم جديد</button>
-                        <button id="btn-add-item" class="btn btn-primary">+ إضافة وجبة جديدة</button>
+                        <button id="btn-add-category" class="btn btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            إضافة قسم جديد
+                        </button>
+                        <button id="btn-add-item" class="btn btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            إضافة وجبة جديدة
+                        </button>
                     </div>
                 </div>
-
-                <!-- عرض الأقسام الحالية -->
                 <div class="categories-management">
                     <h3>الأقسام الحالية</h3>
                     <div id="categories-list" class="tags-container"></div>
                 </div>
-
-                <!-- عرض قائمة الوجبات مصنفة -->
                 <div class="menu-items-management">
                     <h3>قائمة الوجبات</h3>
                     <div id="menu-items-grid" class="menu-admin-grid"></div>
                 </div>
             </section>
-            
-            <!-- 4. تبويب إدارة الطاولات -->
+
+            <!-- ===================== TAB: TABLES ===================== -->
             <section id="tab-tables" class="tab-content">
                 <div class="section-header flex-between">
-                    <h2>إدارة طاولات المطعم</h2>
-                    <button id="btn-add-table" class="btn btn-primary">+ إضافة طاولة جديدة</button>
+                    <h2>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        إدارة طاولات المطعم
+                    </h2>
+                    <button id="btn-add-table" class="btn btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        إضافة طاولة جديدة
+                    </button>
                 </div>
                 <div id="tables-grid" class="tables-grid"></div>
             </section>
 
-            <!-- 5. تبويب الإعدادات -->
+            <!-- ===================== TAB: SETTINGS ===================== -->
             <section id="tab-settings" class="tab-content">
                 <div class="section-header">
-                    <h2>إعدادات المطعم العامة</h2>
+                    <h2>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        إعدادات المطعم العامة
+                    </h2>
                 </div>
-                <form id="restaurant-settings-form" class="settings-form">
-                    <div class="form-group">
-                        <label for="settings-name">اسم المطعم</label>
-                        <input type="text" id="settings-name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="settings-logo">رابط شعار المطعم (URL)</label>
-                        <input type="url" id="settings-logo" placeholder="https://example.com/logo.png">
-                    </div>
-                    <div class="form-row">
+                <div class="settings-card">
+                    <form id="restaurant-settings-form" class="settings-form">
                         <div class="form-group">
-                            <label for="settings-opening">وقت فتح المطعم</label>
-                            <input type="time" id="settings-opening" required>
+                            <label for="settings-name">اسم المطعم</label>
+                            <input type="text" id="settings-name" required>
                         </div>
                         <div class="form-group">
-                            <label for="settings-closing">وقت إغلاق المطعم</label>
-                            <input type="time" id="settings-closing" required>
+                            <label for="settings-logo">رابط شعار المطعم (URL)</label>
+                            <input type="url" id="settings-logo" placeholder="https://example.com/logo.png">
                         </div>
-                    </div>
-                    <div class="form-group toggle-group">
-                        <label for="settings-accept-orders">حالة استقبال الطلبات الفورية</label>
-                        <input type="checkbox" id="settings-accept-orders" class="toggle-checkbox">
-                    </div>
-                    <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
-                </form>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="settings-opening">وقت فتح المطعم</label>
+                                <input type="time" id="settings-opening" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-closing">وقت إغلاق المطعم</label>
+                                <input type="time" id="settings-closing" required>
+                            </div>
+                        </div>
+                        <div class="form-group toggle-group">
+                            <label for="settings-accept-orders">حالة استقبال الطلبات الفورية</label>
+                            <input type="checkbox" id="settings-accept-orders" class="toggle-checkbox">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            حفظ التغييرات
+                        </button>
+                    </form>
+                </div>
             </section>
 
         </main>
     </div>
 
-    <!-- =========================================================================
-       النوافذ المنبثقة (Modals) لإدخال وتعديل البيانات
-       ========================================================================= -->
+    <!-- ======================== MODALS ======================== -->
 
-    <!-- Modal القسم -->
+    <!-- Category Modal -->
     <div id="modal-category" class="modal hidden">
+        <div class="modal-backdrop" aria-hidden="true"></div>
         <div class="modal-content">
-            <span class="close-modal" id="close-category-modal">&times;</span>
+            <span class="close-modal" id="close-category-modal">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
             <h3 id="category-modal-title">إضافة قسم جديد</h3>
             <form id="form-category">
                 <input type="hidden" id="category-id">
@@ -181,10 +381,13 @@
         </div>
     </div>
 
-    <!-- Modal الوجبة -->
+    <!-- Item Modal -->
     <div id="modal-item" class="modal hidden">
+        <div class="modal-backdrop" aria-hidden="true"></div>
         <div class="modal-content">
-            <span class="close-modal" id="close-item-modal">&times;</span>
+            <span class="close-modal" id="close-item-modal">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
             <h3 id="item-modal-title">إضافة وجبة جديدة</h3>
             <form id="form-item">
                 <input type="hidden" id="item-id">
@@ -217,15 +420,17 @@
         </div>
     </div>
 
-    <!-- عنصر الصوت المخفي للتنبيهات الفورية عند وصول طلب جديد -->
+    <!-- Notification Sound -->
     <audio id="notification-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav" preload="auto"></audio>
 
-    <!-- تضمين مكتبات التخديم والتشغيل الخارجية للـ QR وقاعدة البيانات -->
+    <!-- Floating Action Button -->
+    <button class="fab" id="fab-quick-action" title="الرجوع للأعلى">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- مكتبة كيو آر كود لإنشاء الباركود للطاولات ديناميكياً -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    
-    <!-- تشغيل الملف البرمجي الرئيسي المتحكم باللوحة كموديول مستقل -->
     <script type="module" src="dashboard.js"></script>
 </body>
 </html>
