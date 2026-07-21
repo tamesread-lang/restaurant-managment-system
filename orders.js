@@ -38,6 +38,11 @@ function renderStats() {
     const current = localOrders.filter(o => ['new', 'preparing', 'ready'].includes(o.status)).length;
     const completed = localOrders.filter(o => o.status === 'delivered').length;
     const cancelled = localOrders.filter(o => o.status === 'cancelled').length;
+
+    const countNew = localOrders.filter(o => o.status === 'new').length;
+    const countPreparing = localOrders.filter(o => o.status === 'preparing').length;
+    const countReady = localOrders.filter(o => o.status === 'ready').length;
+    const countDelivered = localOrders.filter(o => o.status === 'delivered').length;
     
     const dailyEarnings = localOrders
         .filter(o => o.status === 'delivered')
@@ -47,6 +52,16 @@ function renderStats() {
     document.getElementById('stat-completed-orders').textContent = completed;
     document.getElementById('stat-cancelled-orders').textContent = cancelled;
     document.getElementById('stat-daily-earnings').textContent = formatCurrency(dailyEarnings);
+
+    // تحديث بطاقات حالة الطلبات المباشرة
+    const elNew = document.getElementById('status-count-new');
+    const elPreparing = document.getElementById('status-count-preparing');
+    const elReady = document.getElementById('status-count-ready');
+    const elDelivered = document.getElementById('status-count-delivered');
+    if (elNew) elNew.textContent = countNew;
+    if (elPreparing) elPreparing.textContent = countPreparing;
+    if (elReady) elReady.textContent = countReady;
+    if (elDelivered) elDelivered.textContent = countDelivered;
     
     // الأرباح الشهرية (استعلام سريع منفصل للاحتساب)
     calculateMonthlyEarnings();
